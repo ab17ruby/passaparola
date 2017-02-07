@@ -1,9 +1,9 @@
-require 'kisiler'
-require './program'
+require_relative './kisiler'
+
 
 module Passaparola
   class Menu
-    def initiliaze
+    def initialize
       main_menu
     end
 
@@ -13,18 +13,20 @@ module Passaparola
       puts "2) Kayıtlar "
       puts "Cikmak icin q"
       print "Secim : "
-      selection = gets
+      selection = gets.chomp
       case selection
       when "1"
         info_menu
+        oyun
       when "2"
-
+        Ogrenciler::Dosya.save
       when "q"; exit
       else
         puts "Hatali giris yaptiniz."
         main_menu
       end
     end
+
     def info_menu
       @yarismaci = Passaparola::Kisiler.new
       puts "Adiniz : "
@@ -36,19 +38,21 @@ module Passaparola
       puts "Mesleginiz : "
       @yarismaci.meslegi = gets
     end
+
     def oyun
-      @sorular = Passaparola::Dosya.sozluk
+      dosya = Passaparola::Dosya.new
+      @sorular = dosya.soru_cevap
       until @sorular.empty? do
         @sorular.each do |key,value|
           puts key
-          print "Cevabiniz : "
-          cevap = gets.upcase!
+          print "Cevabiniz : #{value[0].uppercase!}"
+          cevap = gets.upcase!.insert(0,value[0])
           if cevap == value.upcase
             @yarismaci.puani += 100
             @sorular.shift
           elsif cevap == "PAS"
           else
-            puts "Kaybettiniz. Cevap : #{value}"
+            @yarismaci.puani -=100
           end
         end
       end
