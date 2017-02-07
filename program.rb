@@ -1,5 +1,6 @@
 require './lib/menu'
 require './lib/kisiler'
 
-
-Passaparola::Menu.new
+loop do
+  Passaparola::Menu.new  
+end

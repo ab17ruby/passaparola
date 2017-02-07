@@ -4,9 +4,9 @@ module Passaparola
 
     def initialize; end
 
-    DOSYA_ADI = 'db/yarismacilar.txt'.freeze
+    DOSYA_ADI = './db/yarismacilar.txt'.freeze
     def save
-      yarismacilar = [@adi, @soyadi, @yasi, @meslegi]
+      yarismacilar = [@adi, @soyadi, @yasi, @meslegi ,@puani]
       File.open(DOSYA_ADI, 'a') do |dosya|
         dosya.print yarismacilar.join(';')
       end
