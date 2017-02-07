@@ -1,3 +1,1 @@
-f;f;f;f;-2800
-f;f;f;f;-2800
-ugur;cibar;23;muh;-2800
+serdar;mutlu;21;ogrenci;2800
