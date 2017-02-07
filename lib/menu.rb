@@ -1,5 +1,5 @@
 require_relative './kisiler'
-
+require_relative './dosya'
 
 module Passaparola
   class Menu
@@ -37,6 +37,7 @@ module Passaparola
       @yarismaci.yasi = gets
       puts "Mesleginiz : "
       @yarismaci.meslegi = gets
+      @yarismaci.puani = 0
     end
 
     def oyun
@@ -45,17 +46,23 @@ module Passaparola
       until @sorular.empty? do
         @sorular.each do |key,value|
           puts key
-          print "Cevabiniz : #{value[0].uppercase!}"
-          cevap = gets.upcase!.insert(0,value[0])
-          if cevap == value.upcase
-            @yarismaci.puani += 100
-            @sorular.shift
-          elsif cevap == "PAS"
+          print "Cevabiniz #{value[1]}.. : "
+          cevap = gets.chomp.upcase!
+          if cevap == value.upcase.strip
+            @yarismaci.puani +=100
+            puts "DOGRU !"
+            @sorular.delete key
+          elsif cevap == "PAS" && @pas_hakki != 0
+            puts "Pas gectiniz."
           else
             @yarismaci.puani -=100
+            @sorular.delete key
+            puts "YANLİS !"
           end
+          puts "-"*50
         end
       end
+      puts "Puaniniz #{@yarismaci.puani}"
     end
   end
 end

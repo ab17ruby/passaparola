@@ -1,15 +1,12 @@
 module Passaparola
-  class Dosya
+    class Dosya
+      def initialize
+      end
 
-    SORULAR = "./db/sorular.txt"
-    CEVAPLAR = "./db/sorular.txt"
+        DOSYA_ADI = './db/soru_cevap.txt'.freeze
 
-    def sozluk
-      @soru_cevap = Hash[sorular.zip(cevaplar)]
-    end
-
-    def
-
-
-  end
+        def soru_cevap
+            File.open(DOSYA_ADI, 'r').readlines.reject(&:empty?).map { |s| s.split(';') }.to_h
+        end
+      end
 end
